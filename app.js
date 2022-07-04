@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/todoDB");
+mongoose.connect("mongodb+srv://Snehamay:test123@cluster0.l1kdj8n.mongodb.net/todoDB?retryWrites=true&w=majority");
 
 const todoschema ={
     name:String,
@@ -121,10 +121,15 @@ app.post("/",(req,res)=>{
 app.post("/delete" ,(req,res)=>{
     const checkid =req.body.checkbox;
     const listname=req.body.listname;
+
+
     if(listname==="Today"){
       Item.findByIdAndDelete(checkid,(err)=>{
-        if(!err){
-            console.log("Successfull Deletion")
+        if(err){
+          console.log(err);
+            
+        }else{
+          console.log("Successfull Deletion")
             res.redirect("/");
         }
     })
@@ -138,10 +143,32 @@ app.post("/delete" ,(req,res)=>{
     
     
 })
+// app.post("/delete", function(req, res){
+//   const checkedItemId = req.body.checkbox;
+//   const listName = req.body.listName;
 
+//   if (listName === "Today") {
+//     Item.findByIdAndRemove(checkedItemId, function(err){
+//       if (!err) {
+//         console.log("Successfully deleted checked item.");
+//         res.redirect("/");
+//       }
+//     });
+//   } else {
+//     List.findOneAndUpdate({name: listName}, {$pull: {items: {_id: checkedItemId}}}, function(err, foundList){
+//       if (!err){
+//         res.redirect("/" + listName);
+//       }
+//     });
+//   }
+// })
 
+const port=process.env.PORT;
+if(port==null||port==""){
+  port=3000
 
+}
 
-app.listen(3000,()=>{
+app.listen(port,()=>{
     console.log("Server is runnig "); 
 })
