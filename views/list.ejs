@@ -12,7 +12,7 @@
            <input type="checkbox" name="checkbox" value="<%= item._id %>" onChange="this.form.submit()" >
            <p><%= item.name%></p>
          </div>
-
+          <input type="hidden" name="listname",value="<%= kindofday %>"></input>
         </form>
       <% }) %>
      
@@ -21,7 +21,7 @@
     
     <form class ="item "action="/" method="post">
         <input type="text"name="item" placeholder="New Item" autocomplete="off">
-        <button type="submit"name="list" value= <%= kindofday %> >+</button>
+        <button type="submit"name="list" value= "<%= kindofday %>" >+</button>
     </form>
    </div>
     
