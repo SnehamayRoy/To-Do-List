@@ -66,7 +66,7 @@ app.get("/",function(req,res){
      } )
 });
 
-app.get("/:customListName", function(req, res){
+app.get("/add/:customListName", function(req, res){
     const customListName = _.capitalize(req.params.customListName);
     
   
@@ -79,7 +79,7 @@ app.get("/:customListName", function(req, res){
             items: defaultitems,
           });
           list.save();
-          res.redirect("/" + customListName);
+          res.redirect("/add/" + customListName);
         } else {
           //Show an existing list
   
@@ -112,7 +112,7 @@ app.post("/",(req,res)=>{
       List.findOne({name:listname},(err,found)=>{
         found.items.push(item);
         found.save();
-        res.redirect("/"+listname);
+        res.redirect("/add/"+listname);
       })
     }
      
@@ -136,7 +136,7 @@ app.post("/delete" ,(req,res)=>{
     }else{
        List.findOneAndUpdate({name:listname},{$pull:{items:{_id:checkid}}},(err,result)=>{
           if(!err){
-            res.redirect("/"+listname);
+            res.redirect("/add/"+listname);
           }
        })
     }
@@ -163,12 +163,12 @@ app.post("/delete" ,(req,res)=>{
 //   }
 // })
 
-const port=process.env.PORT;
-if(port==null||port==""){
-  port=3000
+// const port=process.env.PORT;
+// if(port==null||port==""){
+//   port=3000
 
-}
+// }
 
-app.listen(port,()=>{
+app.listen(3000,()=>{
     console.log("Server is runnig "); 
 })
